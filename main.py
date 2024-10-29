@@ -15,6 +15,9 @@ def menu():
     3 | Listar Livros
     4 | Adcionar assinante
     5 | Listar assinantes
+    6 | Deletar Livro da biblioteca
+    7 | Deletar assinante do sistema
+    8 | Encerrar programa
     """)
 
 #Banco de dados
@@ -105,7 +108,16 @@ while True:
 
             for assinante in listar_assinantes:
                 print(f"Nome: {registro_nome_assinante} \nEmail: {registro_email_assinante}\n")
-
+        case 6:
+            #6 | Deletar Livro da biblioteca
+            pass
+        case 7:
+            #7 | Deletar assinante do sistema
+            pass
+        case 8:
+            #8 | Encerrar programa
+            print("Fechando programa...")
+            break
         case _:
             os.system("cls || clear")
             print("Opção invalida \nTente novamente \n")
