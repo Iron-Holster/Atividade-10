@@ -1,5 +1,5 @@
 """
-Integrantes: Fabrício Silvany, Victor Andrade, Jonatas Fernandes
+Integrantes: Fabrício Silvany || Victor Andrade || Jonatas Fernandes
 """
 import os
 os.system("cls || clear")
@@ -18,39 +18,30 @@ def menu():
     """)
 
 #Banco de dados
-BANCO_DADOS_LIVROS = create_engine("sqlite:///dados_dos_livros.db")
+BANCO_DADOS = create_engine("sqlite:///banco_de_dados.db")
 
 #Conexão com o banco de dados
-Session = sessionmaker(bind=BANCO_DADOS_LIVROS)
+Session = sessionmaker(bind=BANCO_DADOS)
 session = Session()
 
 #Tabela
 Base = declarative_base()
 
-class Livro(Base):
+class Livros(Base):
     __tablename__ = "livros"
 
     #Campos da tabela
-    id = Column("id", Integer, primary_key = True, autoincrement=True)
-    livro_nome = Column("livro_nome", String)
-    preco_livro = Column("preco_livro", Float)
+    id = Column("id", Integer, primary_key=True, autoincrement=True)
+    livro_nome = Column(String)
+    preco_livro = Column(Float)
 
-    def __init__(self, livro_nome = str, preco_livro = float):
+    def __init__(self, livro_nome="", preco_livro=0.0):
         self.livro_nome = livro_nome
         self.preco_livro = preco_livro
 
-#Segundo banco de dados
-BANCO_DADOS_ASSINANTES = create_engine("sqlite:///dados_dos_assinantes.db")
-
-#Cinexão com o segundo banco de dados
-Session = sessionmaker(bind=BANCO_DADOS_ASSINANTES)
-session = Session()
-
-#Segunda tabela
-Base = declarative_base()
 
 class Assinante(Base):
-    __tablename__ = "livros"
+    __tablename__ = "assinantes"
 
     id = Column("id", Integer, primary_key=True, autoincrement=True)
     nome_assinante = Column("nome assinante", String)
@@ -61,8 +52,7 @@ class Assinante(Base):
         self.email_assinante = email_assinante
 
 #Criando tabela no banco de dados
-Base.metadata.create_all(bind=BANCO_DADOS_LIVROS)
-Base.metadata.create_all(bind=BANCO_DADOS_ASSINANTES)
+Base.metadata.create_all(bind=BANCO_DADOS)
 
 os.system("cls || clear")
 
@@ -75,13 +65,16 @@ while True:
             os.system("cls || clear")
             #1 | Adicionar livro
             titulo_livro = input("Insira o titulo do livro: ")
-            valor_livro = float(input("Insira o preço do livro:"))
- 
-            livro = Livro(livro_nome = titulo_livro, preco_livro = valor_livro)
+            valor_livro = float(input("Insira o preço do livro: "))
+
+            livro = Livros(livro_nome=titulo_livro, preco_livro=valor_livro)
 
             session.add(livro)
             session.commit()
-        
+            os.system("cls || clear")
+
+            print("Livro adicionado!\n")
+
         case 2:
             os.system("cls || clear")
             #2 | Procurar livro
@@ -89,22 +82,30 @@ while True:
         case 3:
             os.system("cls || clear")
             #3 | Listar Livros
+            listar_livros = session.query(Livros).all
             pass
         case 4:
             os.system("cls || clear")
             #4 | Adicionar assinante
-            registro_nome_assinante = input("Insira o titulo do livro: ")
-            registro_email_assinante = float(input("Insira o preço do livro:"))
+            registro_nome_assinante = input("Insira o nome do assinante: ")
+            registro_email_assinante = input("Insira o email do assinante: ")
 
             assinante = Assinante(nome_assinante=registro_nome_assinante, email_assinante = registro_email_assinante)
 
             session.add(assinante)
             session.commit()
+            os.system("cls || clear")
+            
+            print("Assinatura concluida\n")
 
         case 5:
+            #5 | Listar assinantes       
             os.system("cls || clear")
-            #5 | Listar assinantes
-            pass        
+            listar_assinantes = session.query(Assinante).all
+
+            for assinante in listar_assinantes:
+                print(f"Nome: {registro_nome_assinante} \nEmail: {registro_email_assinante}\n")
+
         case _:
             os.system("cls || clear")
             print("Opção invalida \nTente novamente \n")
