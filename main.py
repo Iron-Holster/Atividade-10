@@ -72,14 +72,30 @@ while True:
 
     match(opcao):
         case 1:
-        #1 | Adicionar livro
+            #1 | Adicionar livro
+            titulo_livro = input("Insira o titulo do livro: ")
+            valor_livro = float(input("Insira o preço do livro:"))
+
+            livro = Livro(livro_nome = titulo_livro, preco_livro = valor_livro)
+
+            session.add(livro)
+            session.commit()
+        
         case 2:
-        #2 | Procurar livro
+            #2 | Procurar livro
         case 3:
-        #3 | Listar Livros
+            #3 | Listar Livros
         case 4:
-        #4 | Adcionar assinante
+            #4 | Adicionar assinante
+            registro_nome_assinante = input("Insira o titulo do livro: ")
+            registro_email_assinante = float(input("Insira o preço do livro:"))
+
+            assinante = Assinante(nome_assinante=registro_nome_assinante, email_assinante = registro_email_assinante)
+
+            session.add(assinante)
+            session.commit()
+
         case 5:
-        #5 | Listar assinantes
+            #5 | Listar assinantes
         case _:
             print("Opção invalida \nTente novamente \n")
