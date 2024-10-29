@@ -57,6 +57,55 @@ class Assinante(Base):
 #Criando tabela no banco de dados
 Base.metadata.create_all(bind=BANCO_DADOS)
 
+
+#Funções
+def adicionar_livro(livro):
+        os.system("cls || clear")
+        #1 | Adicionar livro
+        titulo_livro = input("Insira o titulo do livro: ")
+        valor_livro = float(input("Insira o preço do livro: "))
+
+        livro = Livros(livro_nome=titulo_livro, preco_livro=valor_livro)
+
+        session.add(livro)
+        session.commit()
+
+def procurar_livro(livro):
+        os.system("cls || clear")
+
+        busca_titulo = input("Informe o nome do livro para busca: ")
+        os.system("cls || clear")
+        nome_livro = session.query(Livros).filter_by(titulo_livro = busca_titulo).first()
+
+        print(f"Dados do livro: \nId: {livro.id} \nTítulo: {livro.livro_nome} \nPreço: {livro.preco_livro}")
+
+        return nome_livro
+
+def listar_livros(livro):
+    os.system("cls || clear")
+    lista_livros = session.query(Livros).all()
+    
+    for livros in lista_livros:
+        print(f"Título do livro: {livros.livro_nome} \nPreço do livro: {livros.preco_livro}\n")
+
+def adicionar_assinante(assinante):
+    os.system("cls || clear")
+    registro_nome_assinante = input("Insira o nome do assinante: ")
+    registro_email_assinante = input("Insira o email do assinante: ")
+
+    assinante = Assinante(nome_assinante=registro_nome_assinante, email_assinante = registro_email_assinante)
+
+    session.add(assinante)
+    session.commit()
+
+def listar_assinantes(assinante):
+        os.system("cls || clear")
+        lista_assinantes = session.query(Assinante).all
+
+        for assinantes in lista_assinantes:
+            print(f"Nome: {assinantes.nome_assinante} \nEmail: {assinantes.email_assinante}\n")
+
+
 os.system("cls || clear")
 
 while True:
@@ -65,40 +114,27 @@ while True:
 
     match(opcao):
         case 1:
+            #Adicionando livros
+            adicionando_livro = adicionar_livro(opcao)
+            adicionando_livro
             os.system("cls || clear")
-            #1 | Adicionar livro
-            titulo_livro = input("Insira o titulo do livro: ")
-            valor_livro = float(input("Insira o preço do livro: "))
-
-            livro = Livros(livro_nome=titulo_livro, preco_livro=valor_livro)
-
-            session.add(livro)
-            session.commit()
-            os.system("cls || clear")
-
             print("Livro adicionado!\n")
 
         case 2:
-            os.system("cls || clear")
-            #2 | Procurar livro
-            pass
+            #Procurando livros
+            busca_livros = procurar_livro(opcao)
+            busca_livros
+
         case 3:
-            os.system("cls || clear")
             #3 | Listar Livros
-            listar_livros = session.query(Livros).all
-            pass
+            listando_livros = listar_livros(opcao)
+            listando_livros
+
         case 4:
-            os.system("cls || clear")
             #4 | Adicionar assinante
-            registro_nome_assinante = input("Insira o nome do assinante: ")
-            registro_email_assinante = input("Insira o email do assinante: ")
-
-            assinante = Assinante(nome_assinante=registro_nome_assinante, email_assinante = registro_email_assinante)
-
-            session.add(assinante)
-            session.commit()
+            adicionando_assinante = adicionar_assinante(opcao)
+            adicionando_assinante
             os.system("cls || clear")
-            
             print("Assinatura concluida\n")
 
         case 5:
@@ -108,16 +144,7 @@ while True:
 
             for assinante in listar_assinantes:
                 print(f"Nome: {registro_nome_assinante} \nEmail: {registro_email_assinante}\n")
-        case 6:
-            #6 | Deletar Livro da biblioteca
-            pass
-        case 7:
-            #7 | Deletar assinante do sistema
-            pass
-        case 8:
-            #8 | Encerrar programa
-            print("Fechando programa...")
-            break
+
         case _:
             os.system("cls || clear")
             print("Opção invalida \nTente novamente \n")
