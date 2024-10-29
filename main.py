@@ -32,8 +32,8 @@ class Livro(Base):
 
     #Campos da tabela
     id = Column("id", Integer, primary_key = True, autoincrement=True)
-    livro_nome = Column("nome do livro", String)
-    preco_livro = Column("preço do livro", Float)
+    livro_nome = Column("livro_nome", String)
+    preco_livro = Column("preco_livro", Float)
 
     def __init__(self, livro_nome = str, preco_livro = float):
         self.livro_nome = livro_nome
