@@ -2,7 +2,7 @@
 Integrantes: Fabrício Silvany, Victor Andrade, Jonatas Fernandes
 """
 import os
-
+os.system("cls || clear")
 from sqlalchemy import create_engine, Column, String, Float, Integer
 from sqlalchemy.orm import sessionmaker, declarative_base
 
@@ -72,6 +72,7 @@ while True:
 
     match(opcao):
         case 1:
+            os.system("cls || clear")
             #1 | Adicionar livro
             titulo_livro = input("Insira o titulo do livro: ")
             valor_livro = float(input("Insira o preço do livro:"))
@@ -82,10 +83,15 @@ while True:
             session.commit()
         
         case 2:
+            os.system("cls || clear")
             #2 | Procurar livro
+            pass
         case 3:
+            os.system("cls || clear")
             #3 | Listar Livros
+            pass
         case 4:
+            os.system("cls || clear")
             #4 | Adicionar assinante
             registro_nome_assinante = input("Insira o titulo do livro: ")
             registro_email_assinante = float(input("Insira o preço do livro:"))
@@ -96,6 +102,9 @@ while True:
             session.commit()
 
         case 5:
+            os.system("cls || clear")
             #5 | Listar assinantes
+            pass        
         case _:
+            os.system("cls || clear")
             print("Opção invalida \nTente novamente \n")
