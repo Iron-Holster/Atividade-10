@@ -76,7 +76,7 @@ while True:
             #1 | Adicionar livro
             titulo_livro = input("Insira o titulo do livro: ")
             valor_livro = float(input("Insira o preço do livro:"))
-
+ 
             livro = Livro(livro_nome = titulo_livro, preco_livro = valor_livro)
 
             session.add(livro)
