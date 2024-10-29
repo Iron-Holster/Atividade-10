@@ -6,6 +6,17 @@ import os
 from sqlalchemy import create_engine, Column, String, Float, Integer
 from sqlalchemy.orm import sessionmaker, declarative_base
 
+#Menu
+def menu():
+    print("==|BILIOTECA DIGITAL|==")
+    print("""
+    1 | Adicionar livro
+    2 | Procurar livro
+    3 | Listar Livros
+    4 | Adcionar assinante
+    5 | Listar assinantes
+    """)
+
 #Banco de dados
 BANCO_DADOS_LIVROS = create_engine("sqlite:///dados_dos_livros.db")
 
@@ -54,3 +65,21 @@ Base.metadata.create_all(bind=BANCO_DADOS_LIVROS)
 Base.metadata.create_all(bind=BANCO_DADOS_ASSINANTES)
 
 os.system("cls || clear")
+
+while True:
+    menu()
+    opcao =int(input("\n Digite sua opção: "))
+
+    match(opcao):
+        case 1:
+        #1 | Adicionar livro
+        case 2:
+        #2 | Procurar livro
+        case 3:
+        #3 | Listar Livros
+        case 4:
+        #4 | Adcionar assinante
+        case 5:
+        #5 | Listar assinantes
+        case _:
+            print("Opção invalida \nTente novamente \n")
