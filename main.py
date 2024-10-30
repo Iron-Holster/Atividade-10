@@ -145,6 +145,8 @@ while True:
             #3 | Listar Livros
             listando_livros = listar_livros(opcao)
             listando_livros
+            
+            #Assinantes possuem 10% de desconto no aluguel de um livro
 
         case 4:
             #Adicionar assinantes
