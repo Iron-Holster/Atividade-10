@@ -62,7 +62,7 @@ Base.metadata.create_all(bind=BANCO_DADOS)
 def adicionar_livro(livro):
         os.system("cls || clear")
         #1 | Adicionar livro
-        titulo_livro = input("Insira o titulo do livro: ")
+        titulo_livro = input("Insira o titulo do livro: ").lower()
         valor_livro = float(input("Insira o preço do livro: "))
 
         livro = Livros(livro_nome=titulo_livro, preco_livro=valor_livro)
@@ -73,24 +73,24 @@ def adicionar_livro(livro):
 def procurar_livro(livro):
         os.system("cls || clear")
 
-        busca_titulo = input("Informe o nome do livro para busca: ")
+        busca_titulo = input("Informe o nome do livro para busca: ").lower()
         os.system("cls || clear")
-        nome_livro = session.query(Livros).filter_by(titulo_livro = busca_titulo).first()
+        busca_livro = session.query(Livros).filter_by(livro_nome = busca_titulo).first()
 
-        print(f"Dados do livro: \nId: {livro.id} \nTítulo: {livro.livro_nome} \nPreço: {livro.preco_livro}")
+        print(f"Dados do livro: \nId: {busca_livro.id} \nTítulo: {busca_livro.livro_nome} \nPreço: {busca_livro.preco_livro}\n")
 
-        return nome_livro
+        return busca_livro
 
 def listar_livros(livro):
     os.system("cls || clear")
     lista_livros = session.query(Livros).all()
     
     for livros in lista_livros:
-        print(f"Título do livro: {livros.livro_nome} \nPreço do livro: {livros.preco_livro}\n")
+        print(f"Id: {livros.id} \nTítulo do livro: {livros.livro_nome} \nPreço do livro: {livros.preco_livro}\n")
 
 def adicionar_assinante(assinante):
     os.system("cls || clear")
-    registro_nome_assinante = input("Insira o nome do assinante: ")
+    registro_nome_assinante = input("Insira o nome do assinante: ").lower()
     registro_email_assinante = input("Insira o email do assinante: ")
 
     assinante = Assinante(nome_assinante=registro_nome_assinante, email_assinante = registro_email_assinante)
@@ -98,12 +98,13 @@ def adicionar_assinante(assinante):
     session.add(assinante)
     session.commit()
 
+
 def listar_assinantes(assinante):
         os.system("cls || clear")
-        lista_assinantes = session.query(Assinante).all
+        lista_assinantes = session.query(Assinante).all()
 
         for assinantes in lista_assinantes:
-            print(f"Nome: {assinantes.nome_assinante} \nEmail: {assinantes.email_assinante}\n")
+            print(f"Id: {assinantes.id} \nNome: {assinantes.nome_assinante} \nEmail: {assinantes.email_assinante}\n")
 
 
 os.system("cls || clear")
@@ -131,19 +132,16 @@ while True:
             listando_livros
 
         case 4:
-            #4 | Adicionar assinante
-            adicionando_assinante = adicionar_assinante(opcao)
-            adicionando_assinante
+            #Adicionar assinantes
+            adicionando_assinantes = adicionar_assinante(opcao)
+            adicionando_assinantes
             os.system("cls || clear")
-            print("Assinatura concluida\n")
+            print("Assinatura concluída!\n")
 
         case 5:
-            #5 | Listar assinantes       
-            os.system("cls || clear")
-            listar_assinantes = session.query(Assinante).all
-
-            for assinante in listar_assinantes:
-                print(f"Nome: {registro_nome_assinante} \nEmail: {registro_email_assinante}\n")
+            #Listar assinantes
+            listando_assinantes = listar_assinantes(opcao)
+            listando_assinantes
 
         case _:
             os.system("cls || clear")
