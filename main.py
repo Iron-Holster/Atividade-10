@@ -35,10 +35,10 @@ class Livros(Base):
 
     #Campos da tabela
     id = Column("id", Integer, primary_key=True, autoincrement=True)
-    livro_nome = Column(String)
-    preco_livro = Column(Float)
+    livro_nome = Column("livro_nome", String)
+    preco_livro = Column("preco_livro", Float)
 
-    def __init__(self, livro_nome="", preco_livro=0.0):
+    def __init__(self, livro_nome: str, preco_livro: float):
         self.livro_nome = livro_nome
         self.preco_livro = preco_livro
 
@@ -59,10 +59,10 @@ Base.metadata.create_all(bind=BANCO_DADOS)
 
 
 #Funções
-def adicionar_livro(livro):
+def adicionar_livro(livros):
         os.system("cls || clear")
         #1 | Adicionar livro
-        titulo_livro = input("Insira o titulo do livro: ").lower()
+        titulo_livro = input("Insira o titulo do livro: ")
         valor_livro = float(input("Insira o preço do livro: "))
 
         livro = Livros(livro_nome=titulo_livro, preco_livro=valor_livro)
@@ -73,7 +73,7 @@ def adicionar_livro(livro):
 def procurar_livro(livro):
         os.system("cls || clear")
 
-        busca_titulo = input("Informe o nome do livro para busca: ").lower()
+        busca_titulo = input("Informe o nome do livro para busca: ")
         os.system("cls || clear")
         busca_livro = session.query(Livros).filter_by(livro_nome = busca_titulo).first()
 
@@ -90,7 +90,7 @@ def listar_livros(livro):
 
 def adicionar_assinante(assinante):
     os.system("cls || clear")
-    registro_nome_assinante = input("Insira o nome do assinante: ").lower()
+    registro_nome_assinante = input("Insira o nome do assinante: ")
     registro_email_assinante = input("Insira o email do assinante: ")
 
     assinante = Assinante(nome_assinante=registro_nome_assinante, email_assinante = registro_email_assinante)
@@ -106,6 +106,21 @@ def listar_assinantes(assinante):
         for assinantes in lista_assinantes:
             print(f"Id: {assinantes.id} \nNome: {assinantes.nome_assinante} \nEmail: {assinantes.email_assinante}\n")
 
+def excluir_livro(livro):
+     os.system("cls || clear")
+     livro_pesquisa = input("Insira o título do livro a ser excluido: ")
+     livro = session.query(Livros).filter_by(livro_nome = livro_pesquisa).first()
+
+     session.delete(livro)
+     session.commit()
+
+def excluir_assinante(assinante):
+     os.system("cls || clear")
+     busca_assinante = input("Insira o email do assinante a ser excluido: ")
+     assinante = session.query(Assinante).filter_by(email_assinante = busca_assinante).first()
+     
+     session.delete(assinante)
+     session.commit()
 
 os.system("cls || clear")
 
@@ -143,6 +158,20 @@ while True:
             listando_assinantes = listar_assinantes(opcao)
             listando_assinantes
 
+        case 6:
+              #Deletar livro da bliblioteca
+              excluindo_livro = excluir_livro(opcao)
+              excluindo_livro
+              os.system("cls || clear")
+              print("Livro excluído\n")
+
+        case 7:
+              #Cancelar assinatura
+              excluindo_assinante = excluir_assinante(opcao)
+              excluindo_assinante
+              os.system("cls || clear")
+              print("Assinatura cancelada!\n")
+              
         case _:
             os.system("cls || clear")
             print("Opção invalida \nTente novamente \n")
