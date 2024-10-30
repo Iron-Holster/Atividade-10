@@ -1,5 +1,8 @@
 """
 Integrantes: Fabrício Silvany || Victor Andrade || Jonatas Fernandes
+
+Objetivo: Criar um programa o qual o funcionario da biblioteca pode gerenciar os livros no inventario e os assinantes da biblioteca
+
 """
 import os
 os.system("cls || clear")
@@ -77,7 +80,8 @@ def procurar_livro(livro):
         os.system("cls || clear")
         busca_livro = session.query(Livros).filter_by(livro_nome = busca_titulo).first()
 
-        print(f"Dados do livro: \nId: {busca_livro.id} \nTítulo: {busca_livro.livro_nome} \nPreço: {busca_livro.preco_livro}\n")
+        print(f"Dados do livro: \nId: {busca_livro.id} \nTítulo: {busca_livro.livro_nome} \nPreço: {busca_livro.preco_livro}")
+        print(f"Preço Assinante: {(busca_livro.preco_livro)- (busca_livro.preco_livro * 0.20)}\n")
 
         return busca_livro
 
@@ -86,7 +90,7 @@ def listar_livros(livro):
     lista_livros = session.query(Livros).all()
     
     for livros in lista_livros:
-        print(f"Id: {livros.id} \nTítulo do livro: {livros.livro_nome} \nPreço do livro: {livros.preco_livro}\n")
+        print(f"Id: {livros.id} \nTítulo do livro: {livros.livro_nome} \nPreço do livro: {livros.preco_livro}\nPreço Assinante: {(livros.preco_livro)- (livros.preco_livro * 0.20)}\n")
 
 def adicionar_assinante(assinante):
     os.system("cls || clear")
