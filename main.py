@@ -11,7 +11,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 #Menu
 def menu():
-    print("==|BILIOTECA DIGITAL|==")
+    print("==|BIBLIOTECA DIGITAL|==")
     print("""
     1 | Adicionar livro
     2 | Procurar livro
